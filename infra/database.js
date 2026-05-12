@@ -5,7 +5,9 @@ async function query(queryObject) {
 
   try {
     client = await getNewClient();
+
     const result = await client.query(queryObject);
+    
     return result;
   } catch (error) {
     console.error(error);
@@ -22,8 +24,8 @@ async function getNewClient() {
     user: process.env.POSTGRES_USER,
     database: process.env.POSTGRES_DB,
     password: process.env.POSTGRES_PASSWORD,
-    ssl: process.env.NODE_ENV === "development" ? false : true,
-  });
+    ssl: process.env.NODE_ENV === "production", 
+ });
 
   await client.connect();
   return client;
